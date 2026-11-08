@@ -13,6 +13,7 @@ A modern SaaS-based agency management platform built with React and Supabase to 
 | Role | Email | Password |
 | :--- | :--- | :--- |
 | **Admin** | `admin@nexus.com` | `admin123` |
+| **Developer** | `sara@nexus.com` | `sara1234` |
 
 ---
 
