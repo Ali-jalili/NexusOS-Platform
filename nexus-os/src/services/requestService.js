@@ -32,6 +32,17 @@ export async function updateRequest(requestId, updates) {
 
   return { data, error };
 }
+
+export async function getRequests() {
+  const { data, error } = await supabase
+    .from("requests")
+    .select("*")
+    .eq("status", "pending")
+    .order("created_at", { ascending: false });
+
+  return { data, error };
+}
+
 export async function deleteRequest(requestId) {
   const { error } = await supabase
     .from("requests")
