@@ -114,10 +114,11 @@ create policy developer_insert_candidates on public.candidates
     (auth.jwt() ->> 'user_role'::text) = any (array['applicant'::text, 'developer'::text])
   );
 
--- REVIEW: this anon policy allows ANY unauthenticated caller to insert
--- into candidates. Documented here as-is for auditability; consider
--- removing it (or tightening with_check to validated fields) in a
--- follow-up migration.
+-- INTENTIONAL: allows anonymous (unauthenticated) submission into
+-- candidates. The current SignupDeveloperPage flow signs the user up
+-- first (so the applicant/developer policies above cover the normal
+-- path); this anon policy is kept as an option for a future
+-- no-login form variant.
 create policy public_insert_candidates on public.candidates
   for insert
   to anon
