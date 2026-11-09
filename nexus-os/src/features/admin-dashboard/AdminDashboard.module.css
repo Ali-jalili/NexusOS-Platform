@@ -44,6 +44,33 @@
   margin: 0;
 }
 
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.viewAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: gap 0.15s ease, color 0.15s ease;
+}
+
+.viewAll:hover {
+  color: var(--accent-hover);
+  gap: 0.5rem;
+}
+
+.viewAll svg {
+  font-size: 0.7rem;
+}
+
 /* ========== Project Grid ========== */
 .projectGrid {
   display: grid;

@@ -19,7 +19,11 @@ function Header({ showSidebarToggle = false, onToggleSidebar, isSidebarOpen }) {
     <header className={styles.header}>
       <div className={styles.brand}>
         {showSidebarToggle && (
-          <button className={styles.sidebarToggle} onClick={onToggleSidebar}>
+          <button
+            className={styles.sidebarToggle}
+            onClick={onToggleSidebar}
+            aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
+          >
             {isSidebarOpen ? <FaChevronLeft /> : <FaBars />}
           </button>
         )}

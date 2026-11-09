@@ -1,3 +1,4 @@
+/** @format */
 
 import { NavLink } from "react-router-dom";
 import {
@@ -22,7 +23,11 @@ function Sidebar({ isOpen, isMobile, onClose, onToggle }) {
         {isOpen && <span className={styles.brandText}>Nexus</span>}
         {/* دکمه جمع کردن فقط تو دسکتاپ */}
         {!isMobile && (
-          <button className={styles.collapseBtn} onClick={onToggle}>
+          <button
+            className={styles.collapseBtn}
+            onClick={onToggle}
+            aria-label={isOpen ? "Collapse sidebar" : "Expand sidebar"}
+          >
             <FaChevronLeft className={isOpen ? "" : styles.rotated} />
           </button>
         )}
