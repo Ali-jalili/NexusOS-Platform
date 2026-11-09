@@ -50,7 +50,8 @@ create table if not exists public.projects (
 create index if not exists projects_client_idx   on public.projects (client_id);
 create index if not exists projects_developer_idx on public.projects (developer_id);
 
--- developers (profiles of hired/approved applicants)
+-- developers (existing table in the schema; no hire/approve flow is
+-- implemented in the current product, rows are not created by the app)
 create table if not exists public.developers (
   id         uuid primary key, -- mirrors auth.users.id
   full_name  text,
