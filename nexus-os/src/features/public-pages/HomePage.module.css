@@ -62,6 +62,20 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+.eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  background: var(--accent-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: 100px;
+  padding: 0.35rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
 .title {
   font-size: 3.5rem;
   font-weight: 900;
@@ -72,7 +86,7 @@
 }
 
 .highlight {
-  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-warm) 100%);
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-hover) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -81,8 +95,8 @@
   font-size: 1.25rem;
   color: var(--text-secondary);
   line-height: 1.8;
-  margin: 0 auto 2.5rem;
-  max-width: 600px;
+  margin: 0 auto 2rem;
+  max-width: 620px;
 }
 
 .ctaGroup { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
@@ -96,6 +110,12 @@
 .ctaPrimary:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: var(--shadow-colored); }
 .ctaSecondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border-primary); }
 .ctaSecondary:hover { border-color: var(--accent-primary); color: var(--accent-primary); }
+
+.trustLine {
+  margin: 1.5rem 0 0;
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+}
 
 /* ========== Stats ========== */
 .stats {
@@ -157,4 +177,5 @@
 @media (max-width: 480px) {
   .title { font-size: 1.8rem; }
   .ctaTitle { font-size: 1.5rem; }
+  .eyebrow { font-size: 0.7rem; }
 }

@@ -46,13 +46,14 @@ function HomePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
+          <span className={styles.eyebrow}>Agency Operating System</span>
           <h1 className={styles.title}>
-            We Build <span className={styles.highlight}>Digital Products</span>{" "}
-            That Scale
+            Run Your Entire Agency from a{" "}
+            <span className={styles.highlight}>Single Dashboard</span>
           </h1>
           <p className={styles.subtitle}>
-            One platform to run your agency — clients, projects, and developers,
-            tracked from the first request to launch day.
+            Requests, budgets, and your team — one clear workflow, from the
+            first request to launch day.
           </p>
           <div className={styles.ctaGroup}>
             <Link to="/signup/client" className={styles.ctaPrimary}>
@@ -62,6 +63,9 @@ function HomePage() {
               <FaCode /> Join Our Team
             </Link>
           </div>
+          <p className={styles.trustLine}>
+            See it in action with the live demo — no signup required.
+          </p>
         </motion.div>
       </section>
 
