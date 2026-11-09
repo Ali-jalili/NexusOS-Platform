@@ -4,7 +4,7 @@
 -- and mark the request approved — all in ONE transaction.
 --
 -- Called from the client:
---   supabase.rpc('approve_request', { request_id: <uuid> })
+--   supabase.rpc('approve_request', { p_request_id: <uuid> })
 --
 -- SECURITY DEFINER so it can write to tables the caller's role-based
 -- RLS might otherwise restrict; the function itself enforces that the
@@ -46,7 +46,7 @@ begin
   values (
     v_req.project_title,
     v_req.project_description,
-    v_req.budget,
+    nullif(v_req.budget, '')::numeric, -- empty string -> NULL, never a cast error
     v_req.client_id,
     'pending'
   );

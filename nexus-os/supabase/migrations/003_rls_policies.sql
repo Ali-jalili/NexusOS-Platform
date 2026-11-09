@@ -105,21 +105,30 @@ create policy admin_manage_candidates on public.candidates
 create policy applicant_insert_candidates on public.candidates
   for insert
   to authenticated
-  with check ((auth.jwt() ->> 'user_role'::text) = 'applicant'::text);
+  with check (
+    (auth.jwt() ->> 'user_role'::text) = 'applicant'::text
+    and full_name is not null
+    and email is not null
+  );
 
 create policy developer_insert_candidates on public.candidates
   for insert
   to authenticated
   with check (
     (auth.jwt() ->> 'user_role'::text) = any (array['applicant'::text, 'developer'::text])
+    and full_name is not null
+    and email is not null
   );
 
 -- INTENTIONAL: allows anonymous (unauthenticated) submission into
 -- candidates. The current SignupDeveloperPage flow signs the user up
 -- first (so the applicant/developer policies above cover the normal
 -- path); this anon policy is kept as an option for a future
--- no-login form variant.
+-- no-login form variant. Limited to valid submissions.
 create policy public_insert_candidates on public.candidates
   for insert
   to anon
-  with check (true);
+  with check (
+    full_name is not null
+    and email is not null
+  );
