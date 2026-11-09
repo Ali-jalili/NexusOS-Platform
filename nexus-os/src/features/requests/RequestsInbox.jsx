@@ -37,7 +37,7 @@ function RequestsInbox() {
   async function handleApprove(req) {
     setIsApproving(req.id);
 
-    const { error } = await approveRequest(req);
+    const { error } = await approveRequest(req.id);
 
     if (error) {
       setIsApproving(null);
