@@ -111,12 +111,6 @@
 .ctaSecondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border-primary); }
 .ctaSecondary:hover { border-color: var(--accent-primary); color: var(--accent-primary); }
 
-.trustLine {
-  margin: 1.5rem 0 0;
-  font-size: 0.85rem;
-  color: var(--text-tertiary);
-}
-
 /* ========== Stats ========== */
 .stats {
   display: flex; justify-content: center; gap: 4rem;
