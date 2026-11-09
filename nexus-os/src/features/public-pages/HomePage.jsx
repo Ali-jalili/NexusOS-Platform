@@ -63,27 +63,24 @@ function HomePage() {
               <FaCode /> Join Our Team
             </Link>
           </div>
-          <p className={styles.trustLine}>
-            See it in action with the live demo — no signup required.
-          </p>
         </motion.div>
       </section>
 
       <section className={styles.stats} ref={statsRef}>
         <CountUp
-          end={200}
+          end={24}
           label="Projects Delivered"
           icon={FaCheckCircle}
           startCounting={startCounting}
         />
         <CountUp
-          end={50}
+          end={8}
           label="Happy Clients"
           icon={FaUsers}
           startCounting={startCounting}
         />
         <CountUp
-          end={15}
+          end={6}
           label="Expert Developers"
           icon={FaCode}
           startCounting={startCounting}
@@ -133,17 +130,17 @@ function HomePage() {
             {
               step: 1,
               title: "Submit a Request",
-              desc: "Tell us about your project. Every request is reviewed carefully.",
+              desc: "Clients describe their project and budget in minutes.",
             },
             {
               step: 2,
-              title: "We Build It",
-              desc: "Our team builds with regular updates.",
+              title: "Review & Assign",
+              desc: "Requests are approved and matched to the right developer.",
             },
             {
               step: 3,
-              title: "Launch & Scale",
-              desc: "We deploy, monitor, and optimize.",
+              title: "Track & Deliver",
+              desc: "Progress is visible to everyone until launch.",
             },
           ].map((s, i) => (
             <motion.div
