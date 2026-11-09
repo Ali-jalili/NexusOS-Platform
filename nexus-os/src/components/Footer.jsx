@@ -33,11 +33,6 @@ function Footer() {
                 Request a Project
               </Link>
             </li>
-            <li>
-              <Link to="/login" className={styles.item}>
-                Login
-              </Link>
-            </li>
           </ul>
         </div>
 
