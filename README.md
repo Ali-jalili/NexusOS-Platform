@@ -10,8 +10,8 @@ A modern SaaS-based agency management platform built with React and Supabase to 
 
 ### 🔑 Demo Account Credentials
 
-| Role | Email | Password |
-| :--- | :--- | :--- |
+| Role      | Email             | Password   |
+| :-------- | :---------------- | :--------- |
 | **Admin** | `admin@nexus.com` | `admin123` |
 
 ---
@@ -28,12 +28,11 @@ A modern SaaS-based agency management platform built with React and Supabase to 
   * Interactive "Edit & Resubmit" workflow for rejected client requests.
 * **Project & Workflow Management**
   * Project assignment and resource allocation to developers.
-  * Real-time project progress tracking.
+  * Project progress tracking and status updates.
   * Dedicated portals tailored for Admins, Clients, and Developers.
 * **Recruitment & Analytics**
   * Streamlined recruitment workflow for managing candidate pipelines.
   * Interactive dashboard charts and visual analytics.
-  * Real-time notifications and status updates.
 
 ---
 
@@ -54,9 +53,23 @@ A modern SaaS-based agency management platform built with React and Supabase to 
 
 * **Architectural Excellence:** Designed a scalable feature-based frontend architecture ensuring long-term code maintainability.
 * **Data Security:** Implemented fine-grained Row Level Security (RLS) policies and database triggers for dynamic profile initialization.
-* **Efficient State Management:** Managed server state seamlessly with React Query (caching, optimistic updates, and automatic cache invalidation).
+* **Efficient State Management:** Managed server state with React Query (caching and automatic cache invalidation after mutations).
 * **Performance:** Applied code-splitting and dynamic imports to optimize bundle size and overall response time.
 * **UI/UX:** Built responsive, user-friendly layouts tailored for multi-role workflows.
+
+---
+
+## 🔒 Security Model
+
+The security boundary is enforced on the database side, not on the UI:
+
+* **Role-based RLS:** All tables (`requests`, `clients`, `developers`, `projects`, `candidates`) have Row Level Security enabled. Role-gated policies evaluate a custom JWT claim (`auth.jwt() ->> 'user_role'`) injected server-side, which clients cannot forge or tamper with.
+* **Ownership policies:** Client/developer rows are only visible when `id = auth.uid()`, `client_id = auth.uid()`, or `developer_id = auth.uid()`.
+* **Database triggers:** A `SECURITY DEFINER` trigger on `auth.users` auto-initializes `clients` rows for newly signed-up clients, with `search_path` locked to `''` to prevent escalation.
+* **Atomic mutations:** Multi-table flows (e.g., approving a request) run through `SECURITY DEFINER` Postgres RPC functions inside a single transaction, so partial failures cannot leave inconsistent data.
+* **Frontend guards:** Route/role guards in React are a UX layer only; they never replace the database-level checks.
+
+The canonical schema, triggers, policies, and RPC functions are documented under [`nexus-os/supabase/migrations`](nexus-os/supabase/migrations) so the backend security model is verifiable from the repository.
 
 ---
 
