@@ -8,6 +8,7 @@ import {
   FaChartLine,
   FaUsers,
   FaCheckCircle,
+  FaQuoteLeft,
 } from "react-icons/fa";
 import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
@@ -50,8 +51,8 @@ function HomePage() {
             That Scale
           </h1>
           <p className={styles.subtitle}>
-            From stunning websites to powerful dashboards. Our expert team turns
-            your ideas into reality.
+            One platform to run your agency — clients, projects, and developers,
+            tracked from the first request to launch day.
           </p>
           <div className={styles.ctaGroup}>
             <Link to="/signup/client" className={styles.ctaPrimary}>
@@ -101,8 +102,8 @@ function HomePage() {
             },
             {
               icon: FaChartLine,
-              title: "Digital Strategy",
-              desc: "Data-driven marketing to scale your business.",
+              title: "Dashboards & Analytics",
+              desc: "Real-time metrics so you always know where every project stands.",
             },
           ].map((f, i) => (
             <motion.div
@@ -128,7 +129,7 @@ function HomePage() {
             {
               step: 1,
               title: "Submit a Request",
-              desc: "Tell us about your project. We reply within 24h.",
+              desc: "Tell us about your project. Every request is reviewed carefully.",
             },
             {
               step: 2,
@@ -155,6 +156,70 @@ function HomePage() {
             </motion.div>
           ))}
         </div>
+      </section>
+
+      <section className={styles.testimonials}>
+        <h2 className={styles.sectionTitle}>What Clients Say</h2>
+        <div className={styles.testimonialGrid}>
+          {[
+            {
+              quote:
+                "The whole request-to-launch flow was painless. I always knew where my project stood.",
+              name: "Sarah M.",
+              role: "Product Manager, RetailCo",
+            },
+            {
+              quote:
+                "Clear communication, regular updates, and a dashboard that finally makes sense.",
+              name: "James T.",
+              role: "Founder, Brightline",
+            },
+            {
+              quote:
+                "From first request to final delivery in record time. Highly recommended.",
+              name: "Lena K.",
+              role: "Marketing Lead, Northwind",
+            },
+          ].map((t, i) => (
+            <motion.div
+              key={i}
+              className={styles.testimonialCard}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: i * 0.15 }}
+              viewport={{ once: true }}
+            >
+              <FaQuoteLeft className={styles.quoteIcon} />
+              <p className={styles.quote}>{t.quote}</p>
+              <div className={styles.quoteAuthor}>
+                <span className={styles.authorName}>{t.name}</span>
+                <span className={styles.authorRole}>{t.role}</span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      <section className={styles.ctaBand}>
+        <motion.div
+          className={styles.ctaBandContent}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <h2 className={styles.ctaTitle}>
+            Ready to turn your idea into a product?
+          </h2>
+          <p className={styles.ctaText}>
+            Tell us what you're building — we'll take it from there.
+          </p>
+          <div className={styles.ctaGroup}>
+            <Link to="/signup/client" className={styles.ctaPrimary}>
+              <FaRocket /> Start a Project
+            </Link>
+          </div>
+        </motion.div>
       </section>
     </div>
   );

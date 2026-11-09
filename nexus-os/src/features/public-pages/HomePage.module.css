@@ -126,13 +126,35 @@
 .step p { font-size: 0.9rem; color: var(--text-tertiary); line-height: 1.5; }
 .stepArrow { font-size: 2rem; color: var(--text-tertiary); }
 
+/* ========== Testimonials ========== */
+.testimonials { padding: 5rem 2rem; text-align: center; position: relative; z-index: 1; }
+.testimonialGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto; text-align: left; }
+.testimonialCard { background: var(--bg-primary); border: 1px solid var(--border-primary); border-radius: var(--radius-lg); padding: 2rem; transition: all 0.3s ease; display: flex; flex-direction: column; gap: 1rem; }
+.testimonialCard:hover { border-color: var(--accent-primary); transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.quoteIcon { font-size: 1.25rem; color: var(--accent-warm); }
+.quote { font-size: 0.95rem; line-height: 1.7; color: var(--text-secondary); margin: 0; flex: 1; }
+.quoteAuthor { display: flex; flex-direction: column; gap: 0.15rem; }
+.authorName { font-size: 0.9rem; font-weight: 700; color: var(--text-primary); }
+.authorRole { font-size: 0.8rem; color: var(--text-tertiary); }
+
+/* ========== Final CTA Band ========== */
+.ctaBand { padding: 5rem 2rem; text-align: center; background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-hover) 100%); color: white; position: relative; z-index: 1; }
+.ctaBandContent { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+.ctaTitle { font-size: 2.25rem; font-weight: 800; letter-spacing: -0.5px; margin: 0; line-height: 1.2; }
+.ctaText { font-size: 1rem; color: rgba(255, 255, 255, 0.85); line-height: 1.6; margin: 0; }
+.ctaBand .ctaGroup { margin-top: 0.75rem; }
+.ctaBand .ctaPrimary { background: white; color: var(--accent-primary); }
+.ctaBand .ctaPrimary:hover { background: var(--bg-secondary); color: var(--accent-hover); }
+
 /* ========== Responsive ========== */
 @media (max-width: 768px) {
   .title { font-size: 2.2rem; }
   .stats { gap: 2rem; }
   .stepArrow { display: none; }
   .steps { flex-direction: column; }
+  .ctaTitle { font-size: 1.75rem; }
 }
 @media (max-width: 480px) {
   .title { font-size: 1.8rem; }
+  .ctaTitle { font-size: 1.5rem; }
 }
