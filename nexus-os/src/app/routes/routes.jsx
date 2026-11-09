@@ -9,6 +9,7 @@ import PublicLayout from "../layout/PublicLayout";
 import ProtectedRoute from "./ProtectedRoute";
 import RoleGate from "./RoleGate";
 import Spinner from "../../ui/Spinner";
+import ErrorBoundary from "../../ui/ErrorBoundary";
 import DevLayout from "../layout/DevLayout";
 import NotFoundPage from "../../features/public-pages/NotFoundPage";
 
@@ -116,8 +117,10 @@ const routes = createBrowserRouter([
 
 export default function Router() {
   return (
-    <Suspense fallback={<Spinner />}>
-      <RouterProvider router={routes} />
-    </Suspense>
+    <ErrorBoundary>
+      <Suspense fallback={<Spinner />}>
+        <RouterProvider router={routes} />
+      </Suspense>
+    </ErrorBoundary>
   );
 }
