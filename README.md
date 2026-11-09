@@ -1,5 +1,7 @@
 # Nexus Agency OS
 
+[![CI](https://github.com/Ali-jalili/Nexus-Os-Dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/Ali-jalili/Nexus-Os-Dashboard/actions/workflows/ci.yml)
+
 A modern SaaS-based agency management platform built with React and Supabase to centralize client, project, and recruitment workflows into a unified dashboard.
 
 ---
