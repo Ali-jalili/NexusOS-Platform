@@ -46,7 +46,7 @@ export async function approveRequest(reqId) {
   // client profile, and marks the request approved in ONE Postgres call
   // (SECURITY DEFINER, admin-only). See supabase/migrations/004_approve_request.sql.
   const { data, error } = await supabase.rpc("approve_request", {
-    request_id: reqId,
+    p_request_id: reqId,
   });
 
   return { data, error };
