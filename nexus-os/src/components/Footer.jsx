@@ -57,7 +57,7 @@ function Footer() {
           <ul className={styles.list}>
             <li>
               <a
-                href="https://github.com/Ali-jalili/Nexus-Os-Dashboard"
+                href="https://github.com/Ali-jalili/NexusOS-Platform"
                 target="_blank"
                 rel="noreferrer"
                 className={styles.item}

@@ -1,6 +1,6 @@
 # Nexus Agency OS
 
-[![CI](https://github.com/Ali-jalili/Nexus-Os-Dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/Ali-jalili/Nexus-Os-Dashboard/actions/workflows/ci.yml)
+[![CI](https://github.com/Ali-jalili/NexusOS-Platform/actions/workflows/ci.yml/badge.svg)](https://github.com/Ali-jalili/NexusOS-Platform/actions/workflows/ci.yml)
 
 A modern SaaS-based agency management platform built with React and Supabase to centralize client, project, and recruitment workflows into a unified dashboard.
 
@@ -12,9 +12,13 @@ A modern SaaS-based agency management platform built with React and Supabase to 
 
 ### 🔑 Demo Account Credentials
 
-| Role      | Email             | Password   |
-| :-------- | :---------------- | :--------- |
-| **Admin** | `admin@nexus.com` | `admin123` |
+| Role                            | Email             | Password   | Access                                                  |
+| :------------------------------ | :---------------- | :--------- | :------------------------------------------------------ |
+| **Admin**                       | `admin@nexus.com` | `admin123` | Full dashboard: requests, projects, clients, candidates |
+| **Developer** (with projects)   | `zana@nexus.com`  | `zana1234` | Read-only view of assigned projects                     |
+| **Developer** (no projects yet) | `sara@nexus.com`  | `sara1234` | Read-only portal — empty state                          |
+
+> **Note:** Developer accounts are intentionally **read-only**. A developer can view the projects assigned to them, but every status change (`pending → in_progress → completed`) is made by the Admin. This keeps the Admin as the single source of truth for project state — the same constraint is enforced on the database side by RLS (see the Security Model below).
 
 ---
 
@@ -32,6 +36,7 @@ A modern SaaS-based agency management platform built with React and Supabase to 
   * Project assignment and resource allocation to developers.
   * Project progress tracking and status updates.
   * Dedicated portals tailored for Admins, Clients, and Developers.
+  * Developer portal is intentionally **read-only**: developers view assigned projects while the Admin owns every status transition.
 * **Recruitment & Analytics**
   * Streamlined recruitment workflow for managing candidate pipelines.
   * Interactive dashboard charts and visual analytics.
@@ -42,12 +47,13 @@ A modern SaaS-based agency management platform built with React and Supabase to 
 
 ### Frontend
 * **Core:** React, Vite, JavaScript
-* **Routing & State Management:** React Router v6, TanStack React Query v5, Context API, `useReducer`
+* **Routing & State Management:** React Router v7, TanStack React Query v5, Context API
 * **UI & Animation:** Framer Motion, Recharts, React Icons, React Hot Toast, CSS Modules
+* **Testing:** Vitest + Testing Library (unit tests for the auth guards)
 
 ### Backend & Database
 * **Database & Auth:** Supabase, PostgreSQL, Supabase Authentication
-* **Security & Logic:** Row Level Security (RLS) policies, Custom JWT Hooks, Database Triggers
+* **Security & Logic:** Row Level Security (RLS) policies, Custom JWT Hooks, Database Triggers, Postgres RPC functions
 
 ---
 
@@ -56,7 +62,8 @@ A modern SaaS-based agency management platform built with React and Supabase to 
 * **Architectural Excellence:** Designed a scalable feature-based frontend architecture ensuring long-term code maintainability.
 * **Data Security:** Implemented fine-grained Row Level Security (RLS) policies and database triggers for dynamic profile initialization.
 * **Efficient State Management:** Managed server state with React Query (caching and automatic cache invalidation after mutations).
-* **Performance:** Applied code-splitting and dynamic imports to optimize bundle size and overall response time.
+* **Resilience & Performance:** Applied code-splitting, lazy-loaded routes, vendor chunk splitting (no chunk exceeds the 500 kB warning), and a global `ErrorBoundary` to prevent blank-screen crashes.
+* **Quality & CI:** Unit tests for the auth guards (`RoleGate`, `ProtectedRoute`) with Vitest + Testing Library, gated by a GitHub Actions workflow (lint → test → build).
 * **UI/UX:** Built responsive, user-friendly layouts tailored for multi-role workflows.
 
 ---
@@ -81,12 +88,12 @@ Follow these steps to run the project locally:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/Ali-jalili/Nexus-Os-Dashboard.git
+   git clone https://github.com/Ali-jalili/NexusOS-Platform.git
    ```
 
 2. **Navigate to the project directory:**
    ```bash
-   cd Nexus-Os-Dashboard/nexus-os
+   cd NexusOS-Platform/nexus-os
    ```
 
 3. **Install dependencies:**
@@ -94,7 +101,7 @@ Follow these steps to run the project locally:
    npm install
    ```
 
-4. **Start the development server:**
+4. **Create your `.env`** (see the Environment Variables section below), then start the dev server:
    ```bash
    npm run dev
    ```
@@ -114,16 +121,22 @@ VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 
 ## 📁 Project Structure
 
+The application lives in `nexus-os/`.
+
 ```text
-src/
-├── app/          # Layouts, global routes, and guard components
-├── components/   # Shared and reusable UI components
-├── context/      # React contexts (e.g., Auth Context)
-├── features/     # Feature-based modular architecture
-├── hooks/        # Custom React hooks
-├── services/     # API service layer and integration logic
-├── ui/           # Design system and basic UI elements
-└── utils/        # Utility and helper functions
+nexus-os/
+├── src/
+│   ├── app/          # Layouts, global routes, and guard components
+│   ├── components/   # Shared and reusable UI components
+│   ├── context/      # React contexts (e.g., Auth Context)
+│   ├── features/     # Feature-based modular architecture
+│   ├── hooks/        # Custom React hooks
+│   ├── services/     # API service layer and integration logic
+│   ├── ui/           # Design system, basic UI elements, and ErrorBoundary
+│   └── test/         # Unit tests (auth guards) and test setup
+├── utils/            # Utility and helper functions (e.g., name lookups)
+└── supabase/
+    └── migrations/   # Canonical schema, triggers, RLS policies, and RPC functions
 ```
 
 ---
@@ -133,8 +146,8 @@ src/
 - [ ] WebSockets-based real-time notification engine.
 - [ ] Direct file upload and document management system.
 - [ ] Comprehensive business analytics and exporting features.
-- [ ] End-to-End (E2E) and Unit testing suite implementation.
-- [ ] Granular developer editing permissions.
+- [ ] End-to-End testing suite (Playwright) for multi-role login flows.
+- [ ] Granular developer write permissions (e.g., self-updating status).
 
 ---
 
