@@ -153,7 +153,8 @@ nexus-os/
 
 ## 👨‍💻 Author
 
-**Ali Jalili**
+**Ali Jalili** — Frontend Developer
 
-* 🐙 **GitHub:** [@Ali-jalili](https://github.com/Ali-jalili)
-  
+- **Portfolio:** [ali-jalili-dev.vercel.app](https://ali-jalili-dev.vercel.app/)
+- **LinkedIn:** [Ali Jalili](https://www.linkedin.com/in/ali--jalili/)
+- **Email:** [ali.jalili.dev@gmail.com](mailto:ali.jalili.dev@gmail.com)
