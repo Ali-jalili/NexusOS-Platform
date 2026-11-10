@@ -32,6 +32,17 @@ export async function updateRequest(requestId, updates) {
 
   return { data, error };
 }
+
+export async function getRequests() {
+  const { data, error } = await supabase
+    .from("requests")
+    .select("*")
+    .eq("status", "pending")
+    .order("created_at", { ascending: false });
+
+  return { data, error };
+}
+
 export async function deleteRequest(requestId) {
   const { error } = await supabase
     .from("requests")
@@ -41,33 +52,15 @@ export async function deleteRequest(requestId) {
   return { error };
 }
 
-export async function approveRequest(req) {
-  const { error: projectError } = await supabase.from("projects").insert({
-    title: req.project_title,
-    description: req.project_description,
-    client_id: req.client_id,
-    status: "pending",
-    budget: req.budget,
+export async function approveRequest(reqId) {
+  // Atomic, server-side transaction: inserts the project, updates the
+  // client profile, and marks the request approved in ONE Postgres call
+  // (SECURITY DEFINER, admin-only). See supabase/migrations/004_approve_request.sql.
+  const { data, error } = await supabase.rpc("approve_request", {
+    p_request_id: reqId,
   });
 
-  if (projectError) return { error: projectError };
-
-  const { error: updateError } = await supabase
-    .from("clients")
-    .update({
-      company_name: req.company_name,
-      phone: req.phone,
-    })
-    .eq("id", req.client_id);
-
-  if (updateError) return { error: updateError };
-
-  const { error: deleteError } = await supabase
-    .from("requests")
-    .update({ status: "approved" })
-    .eq("id", req.id);
-
-  return { error: deleteError };
+  return { data, error };
 }
 
 export async function rejectRequest(reqId, reason) {

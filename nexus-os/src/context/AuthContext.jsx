@@ -6,6 +6,19 @@ import supabase from "../services/supabase";
 
 const AuthContext = createContext(null);
 
+// Role source of truth:
+// The backend RLS policies gate on a server-injected custom JWT claim
+// ("user_role"), which the client cannot forge. On the client we prefer
+// app_metadata.role (set server-side via auth.updateUser by service
+// code that we control) and fall back to user_metadata.role, which is
+// where current signups still write the role (see authService.js).
+// Once signups migrate to writing app_metadata, the fallback can be
+// dropped. This client-side role read is a UX gate only — it never
+// replaces the database-level security boundary.
+function resolveRole(user) {
+  return user?.app_metadata?.role ?? user?.user_metadata?.role ?? null;
+}
+
 function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
@@ -22,7 +35,7 @@ function AuthProvider({ children }) {
     }
 
     setUser(data.user);
-    setRole(data.user.user_metadata?.role ?? null);
+    setRole(resolveRole(data.user));
     return data.user;
   }
 
@@ -44,7 +57,7 @@ function AuthProvider({ children }) {
       }
       if (session?.user) {
         setUser(session.user);
-        setRole(session.user.user_metadata?.role ?? null);
+        setRole(resolveRole(session.user));
       } else {
         setUser(null);
         setRole(null);
@@ -55,7 +68,7 @@ function AuthProvider({ children }) {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
         setUser(session.user);
-        setRole(session.user.user_metadata?.role ?? null);
+        setRole(resolveRole(session.user));
       }
       setIsLoading(false);
     });

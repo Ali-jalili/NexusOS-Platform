@@ -2,13 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  FaEnvelope,
-  FaLock,
-  FaSpinner,
-  FaGoogle,
-  FaGithub,
-} from "react-icons/fa";
+import { FaEnvelope, FaLock, FaSpinner } from "react-icons/fa";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
 import styles from "./Login.module.css";
@@ -104,17 +98,8 @@ function Login() {
           </button>
         </div>
 
-        <div className={styles.separator}>
-          <span>Or continue with</span>
-        </div>
-
-        <div className={styles.socialBtns}>
-          <button type="button" className={styles.socialBtn} disabled>
-            <FaGoogle /> Google
-          </button>
-          <button type="button" className={styles.socialBtn} disabled>
-            <FaGithub /> GitHub
-          </button>
+        <div className={styles.demoHint}>
+          <strong>Demo admin:</strong> admin@nexus.com / admin123
         </div>
 
         <p className={styles.footerText}>

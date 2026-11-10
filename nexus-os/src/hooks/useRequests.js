@@ -1,18 +1,11 @@
 /** @format */
 
-// /** @format */
-
 import { useQuery } from "@tanstack/react-query";
-import supabase from "../services/supabase.js";
+import { getRequests } from "../services/requestService";
 
 function useRequests() {
   async function fetchRequests() {
-    const { data, error } = await supabase
-      .from("requests")
-      .select("*")
-      .eq("status", "pending")
-      .order("created_at", { ascending: false });
-
+    const { data, error } = await getRequests();
     if (error) throw new Error(error.message);
     return data;
   }

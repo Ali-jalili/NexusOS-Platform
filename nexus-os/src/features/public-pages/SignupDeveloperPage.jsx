@@ -35,6 +35,11 @@ function SignupDeveloperPage() {
       return;
     }
 
+    if (!/^https?:\/\/.+/i.test(resumeUrl.trim())) {
+      toast.error("Resume URL must start with http:// or https://.");
+      return;
+    }
+
     setIsLoading(true);
 
     const { error } = await signupDeveloper({

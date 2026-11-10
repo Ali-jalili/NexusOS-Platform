@@ -8,6 +8,7 @@ import {
   FaChartLine,
   FaUsers,
   FaCheckCircle,
+  FaQuoteLeft,
 } from "react-icons/fa";
 import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
@@ -45,13 +46,14 @@ function HomePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
+          <span className={styles.eyebrow}>Agency Operating System</span>
           <h1 className={styles.title}>
-            We Build <span className={styles.highlight}>Digital Products</span>{" "}
-            That Scale
+            Run Your Entire Agency from a{" "}
+            <span className={styles.highlight}>Single Dashboard</span>
           </h1>
           <p className={styles.subtitle}>
-            From stunning websites to powerful dashboards. Our expert team turns
-            your ideas into reality.
+            Requests, budgets, and your team — one clear workflow, from the
+            first request to launch day.
           </p>
           <div className={styles.ctaGroup}>
             <Link to="/signup/client" className={styles.ctaPrimary}>
@@ -66,19 +68,19 @@ function HomePage() {
 
       <section className={styles.stats} ref={statsRef}>
         <CountUp
-          end={200}
+          end={24}
           label="Projects Delivered"
           icon={FaCheckCircle}
           startCounting={startCounting}
         />
         <CountUp
-          end={50}
+          end={8}
           label="Happy Clients"
           icon={FaUsers}
           startCounting={startCounting}
         />
         <CountUp
-          end={15}
+          end={6}
           label="Expert Developers"
           icon={FaCode}
           startCounting={startCounting}
@@ -101,8 +103,8 @@ function HomePage() {
             },
             {
               icon: FaChartLine,
-              title: "Digital Strategy",
-              desc: "Data-driven marketing to scale your business.",
+              title: "Dashboards & Analytics",
+              desc: "Real-time metrics so you always know where every project stands.",
             },
           ].map((f, i) => (
             <motion.div
@@ -128,17 +130,17 @@ function HomePage() {
             {
               step: 1,
               title: "Submit a Request",
-              desc: "Tell us about your project. We reply within 24h.",
+              desc: "Clients describe their project and budget in minutes.",
             },
             {
               step: 2,
-              title: "We Build It",
-              desc: "Our team builds with regular updates.",
+              title: "Review & Assign",
+              desc: "Requests are approved and matched to the right developer.",
             },
             {
               step: 3,
-              title: "Launch & Scale",
-              desc: "We deploy, monitor, and optimize.",
+              title: "Track & Deliver",
+              desc: "Progress is visible to everyone until launch.",
             },
           ].map((s, i) => (
             <motion.div
@@ -155,6 +157,70 @@ function HomePage() {
             </motion.div>
           ))}
         </div>
+      </section>
+
+      <section className={styles.testimonials}>
+        <h2 className={styles.sectionTitle}>What Clients Say</h2>
+        <div className={styles.testimonialGrid}>
+          {[
+            {
+              quote:
+                "The whole request-to-launch flow was painless. I always knew where my project stood.",
+              name: "Sarah M.",
+              role: "Product Manager, RetailCo",
+            },
+            {
+              quote:
+                "Clear communication, regular updates, and a dashboard that finally makes sense.",
+              name: "James T.",
+              role: "Founder, Brightline",
+            },
+            {
+              quote:
+                "From first request to final delivery in record time. Highly recommended.",
+              name: "Lena K.",
+              role: "Marketing Lead, Northwind",
+            },
+          ].map((t, i) => (
+            <motion.div
+              key={i}
+              className={styles.testimonialCard}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: i * 0.15 }}
+              viewport={{ once: true }}
+            >
+              <FaQuoteLeft className={styles.quoteIcon} />
+              <p className={styles.quote}>{t.quote}</p>
+              <div className={styles.quoteAuthor}>
+                <span className={styles.authorName}>{t.name}</span>
+                <span className={styles.authorRole}>{t.role}</span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      <section className={styles.ctaBand}>
+        <motion.div
+          className={styles.ctaBandContent}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <h2 className={styles.ctaTitle}>
+            Ready to turn your idea into a product?
+          </h2>
+          <p className={styles.ctaText}>
+            Tell us what you're building — we'll take it from there.
+          </p>
+          <div className={styles.ctaGroup}>
+            <Link to="/signup/client" className={styles.ctaPrimary}>
+              <FaRocket /> Start a Project
+            </Link>
+          </div>
+        </motion.div>
       </section>
     </div>
   );

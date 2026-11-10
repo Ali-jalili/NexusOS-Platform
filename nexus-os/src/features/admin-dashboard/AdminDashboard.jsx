@@ -1,5 +1,7 @@
 /** @format */
 
+import { Link } from "react-router-dom";
+
 import useProjects from "../../hooks/useProjects";
 import useRequests from "../../hooks/useRequests";
 import useClients from "../../hooks/useClients";
@@ -18,6 +20,7 @@ import {
   FaUser,
   FaCode,
   FaCoins,
+  FaArrowRight,
 } from "react-icons/fa";
 
 import styles from "./AdminDashboard.module.css";
@@ -68,7 +71,13 @@ function AdminDashboard() {
       <ProjectPieChart />
 
       <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>Recent Projects</h2>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Recent Projects</h2>
+          <Link to="/app/projects" className={styles.viewAll}>
+            <span>View all</span>
+            <FaArrowRight />
+          </Link>
+        </div>
         <div className={styles.projectGrid}>
           {projects?.slice(0, 6).map((project) => {
             const clientName = getClientName(clients, project.client_id);
@@ -111,7 +120,9 @@ function AdminDashboard() {
                     <FaCoins className={styles.cardIcon} />
                     <span className={styles.cardLabel}>Budget</span>
                     <span className={styles.cardValue}>
-                      ${project.budget ?? "-"}
+                      {project.budget
+                        ? "$" + Number(project.budget).toLocaleString("en-US")
+                        : "—"}
                     </span>
                   </div>
                 </div>
