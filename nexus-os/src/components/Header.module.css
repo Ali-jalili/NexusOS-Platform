@@ -90,6 +90,54 @@
   border-color: var(--error);
 }
 
+/* ========== Authenticated user menu (role badge + avatar) ========== */
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.roleBadge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 0.25rem 0.6rem;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.role_admin {
+  background: var(--accent-subtle);
+  color: var(--accent-primary);
+}
+
+.role_client {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success);
+}
+
+.role_developer {
+  background: var(--accent-warm-subtle);
+  color: var(--accent-warm);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: 1px solid var(--border-primary);
+  flex-shrink: 0;
+}
+
 /* ========== Get Started dropdown (guests) ========== */
 .getStarted {
   position: relative;

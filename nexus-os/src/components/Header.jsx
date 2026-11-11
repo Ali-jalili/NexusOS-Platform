@@ -13,6 +13,12 @@ import styles from "./Header.module.css";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
+const roleRoute = {
+  admin: { to: "/app/admin", label: "Dashboard", badge: "Admin" },
+  client: { to: "/client-dashboard", label: "My Projects", badge: "Client" },
+  developer: { to: "/dev-dashboard", label: "My Tasks", badge: "Developer" },
+};
+
 function Header({ showSidebarToggle = false, onToggleSidebar, isSidebarOpen }) {
   const { role, user, handleLogout } = useAuth();
   const navigate = useNavigate();
@@ -52,36 +58,26 @@ function Header({ showSidebarToggle = false, onToggleSidebar, isSidebarOpen }) {
         </Link>
       </div>
 
-      {role === "admin" && (
+      {user && role && (
         <div className={styles.actions}>
-          <NavLink to="/app/admin" className={styles.link}>
-            Dashboard
+          <NavLink to={roleRoute[role].to} className={styles.link}>
+            {roleRoute[role].label}
           </NavLink>
-          <button className={styles.logoutBtn} onClick={handleExit}>
-            Logout
-          </button>
-        </div>
-      )}
 
-      {role === "developer" && (
-        <div className={styles.actions}>
-          <NavLink to="/dev-dashboard" className={styles.link}>
-            My Tasks
-          </NavLink>
-          <button className={styles.logoutBtn} onClick={handleExit}>
-            Logout
-          </button>
-        </div>
-      )}
-
-      {role === "client" && (
-        <div className={styles.actions}>
-          <NavLink to="/client-dashboard" className={styles.link}>
-            My Projects
-          </NavLink>
-          <button className={styles.logoutBtn} onClick={handleExit}>
-            Logout
-          </button>
+          <div className={styles.userMenu}>
+            <span className={`${styles.roleBadge} ${styles[`role_${role}`]}`}>
+              {roleRoute[role].badge}
+            </span>
+            <span
+              className={styles.avatar}
+              aria-label={`Signed in as ${user?.email ?? "user"}`}
+            >
+              {(user?.email ?? "?").charAt(0).toUpperCase()}
+            </span>
+            <button className={styles.logoutBtn} onClick={handleExit}>
+              Logout
+            </button>
+          </div>
         </div>
       )}
 

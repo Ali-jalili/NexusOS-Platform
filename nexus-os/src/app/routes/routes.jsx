@@ -49,13 +49,28 @@ const routes = createBrowserRouter([
     element: <PublicLayout />,
     children: [
       { path: "/", element: <HomePage /> },
-      { path: "/request-project", element: <ProjectRequestForm /> },
       { path: "/login", element: <Login /> },
       { path: "signup/client", element: <SignupClientPage /> },
       { path: "signup/developer", element: <SignupDeveloperPage /> },
       {
         path: "*",
         element: <NotFoundPage />,
+      },
+    ],
+  },
+
+  {
+    path: "/request-project",
+    element: <ProtectedRoute />,
+    children: [
+      {
+        element: <RoleGate allowedRoles={["client"]} />,
+        children: [
+          {
+            element: <ClientLayout />,
+            children: [{ index: true, element: <ProjectRequestForm /> }],
+          },
+        ],
       },
     ],
   },
