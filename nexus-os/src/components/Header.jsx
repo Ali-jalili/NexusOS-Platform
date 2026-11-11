@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import styles from "./Header.module.css";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
 
 const roleRoute = {
@@ -37,6 +38,7 @@ function Header({ showSidebarToggle = false, onToggleSidebar, isSidebarOpen }) {
 
   async function handleExit() {
     await handleLogout();
+    toast.success("You've been logged out.");
     navigate("/");
   }
 
