@@ -90,6 +90,93 @@
   border-color: var(--error);
 }
 
+/* ========== Get Started dropdown (guests) ========== */
+.getStarted {
+  position: relative;
+}
+
+.getStartedToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  background: var(--accent-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.getStartedToggle:hover {
+  background: var(--accent-hover);
+}
+
+.getStartedChevron {
+  font-size: 0.6rem;
+  transition: transform 0.15s ease;
+}
+
+.getStartedChevron.open {
+  transform: rotate(180deg);
+}
+
+.getStartedMenu {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  min-width: 240px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: 0.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  z-index: 200;
+}
+
+.getStartedItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: background 0.15s ease;
+}
+
+.getStartedItem:hover {
+  background: var(--bg-elevated);
+}
+
+.getStartedItemIcon {
+  font-size: 1rem;
+  color: var(--accent-primary);
+}
+
+.getStartedItem span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  text-align: left;
+}
+
+.getStartedItem strong {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.getStartedItem small {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+
 /* ========== Responsive ========== */
 @media (max-width: 768px) {
   .header {
@@ -111,7 +198,8 @@
   }
 
   .link,
-  .logoutBtn {
+  .logoutBtn,
+  .getStartedToggle {
     padding: 0.4rem 0.6rem;
     font-size: 0.75rem;
   }
@@ -131,8 +219,13 @@
   }
 
   .link,
-  .logoutBtn {
+  .logoutBtn,
+  .getStartedToggle {
     padding: 0.35rem 0.5rem;
     font-size: 0.7rem;
+  }
+
+  .getStartedMenu {
+    min-width: 200px;
   }
 }

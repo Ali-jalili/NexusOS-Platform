@@ -103,9 +103,9 @@ function Login() {
         </div>
 
         <p className={styles.footerText}>
-          Don't have an account?{" "}
-          <Link to="/" className={styles.link}>
-            Back to Home
+          Don&apos;t have an account?{" "}
+          <Link to="/signup/client" className={styles.link}>
+            Sign up as a client
           </Link>
         </p>
       </form>

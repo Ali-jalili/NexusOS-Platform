@@ -1,14 +1,33 @@
 /** @format */
 
-import { Link } from "react-router-dom";
-import { FaCode, FaBars, FaChevronLeft } from "react-icons/fa";
+import { useState, useRef, useEffect } from "react";
+import {
+  FaCode,
+  FaBars,
+  FaChevronLeft,
+  FaChevronDown,
+  FaRocket,
+  FaUserTie,
+} from "react-icons/fa";
 import styles from "./Header.module.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 function Header({ showSidebarToggle = false, onToggleSidebar, isSidebarOpen }) {
   const { role, user, handleLogout } = useAuth();
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   async function handleExit() {
     await handleLogout();
@@ -67,9 +86,53 @@ function Header({ showSidebarToggle = false, onToggleSidebar, isSidebarOpen }) {
       )}
 
       {!user && (
-        <NavLink to="/login" className={styles.link}>
-          Login
-        </NavLink>
+        <div className={styles.actions} ref={menuRef}>
+          <div className={styles.getStarted}>
+            <button
+              type="button"
+              className={styles.getStartedToggle}
+              onClick={() => setMenuOpen((prev) => !prev)}
+              aria-expanded={menuOpen}
+              aria-haspopup="menu"
+            >
+              Get Started
+              <FaChevronDown
+                className={`${styles.getStartedChevron} ${menuOpen ? styles.open : ""}`}
+              />
+            </button>
+            {menuOpen && (
+              <div className={styles.getStartedMenu} role="menu">
+                <Link
+                  to="/signup/client"
+                  className={styles.getStartedItem}
+                  role="menuitem"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <FaRocket className={styles.getStartedItemIcon} />
+                  <span>
+                    <strong>Start a Project</strong>
+                    <small>For clients &amp; agencies</small>
+                  </span>
+                </Link>
+                <Link
+                  to="/signup/developer"
+                  className={styles.getStartedItem}
+                  role="menuitem"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <FaUserTie className={styles.getStartedItemIcon} />
+                  <span>
+                    <strong>Join as a Developer</strong>
+                    <small>Submit your resume</small>
+                  </span>
+                </Link>
+              </div>
+            )}
+          </div>
+          <NavLink to="/login" className={styles.link}>
+            Login
+          </NavLink>
+        </div>
       )}
     </header>
   );
