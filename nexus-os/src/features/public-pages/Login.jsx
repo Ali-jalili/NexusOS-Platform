@@ -1,7 +1,7 @@
 /** @format */
 
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FaEnvelope, FaLock, FaSpinner } from "react-icons/fa";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
@@ -15,15 +15,24 @@ function Login() {
 
   const { role, user, handleLogin } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (!user) return;
+
+    // If we were bounced to /login by a guard, go back where they were
+    // headed first; otherwise fall back to the role's default route.
+    const from = location.state?.from;
+    if (from && from !== "/login") {
+      navigate(from, { replace: true });
+      return;
+    }
 
     if (role === "admin") navigate("/app/admin");
     else if (role === "client") navigate("/client-dashboard");
     else if (role === "developer") navigate("/dev-dashboard");
     else navigate("/");
-  }, [user, role, navigate]);
+  }, [user, role, navigate, location.state]);
 
   async function handleSubmit(e) {
     e.preventDefault();

@@ -35,6 +35,21 @@ function SignupDeveloperPage() {
       return;
     }
 
+    if (name.trim().length < 2) {
+      toast.error("Please enter your full name.");
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters.");
+      return;
+    }
+
     if (!/^https?:\/\/.+/i.test(resumeUrl.trim())) {
       toast.error("Resume URL must start with http:// or https://.");
       return;
@@ -43,8 +58,8 @@ function SignupDeveloperPage() {
     setIsLoading(true);
 
     const { error } = await signupDeveloper({
-      name,
-      email,
+      name: name.trim(),
+      email: email.trim(),
       password,
       specialty,
       resumeUrl,

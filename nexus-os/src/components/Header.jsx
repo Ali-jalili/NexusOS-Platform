@@ -60,7 +60,7 @@ function Header({ showSidebarToggle = false, onToggleSidebar, isSidebarOpen }) {
         </Link>
       </div>
 
-      {user && role && (
+      {user && roleRoute[role] && (
         <div className={styles.actions}>
           <NavLink to={roleRoute[role].to} className={styles.link}>
             {roleRoute[role].label}
