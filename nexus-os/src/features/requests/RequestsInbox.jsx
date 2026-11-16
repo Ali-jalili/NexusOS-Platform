@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   FaEnvelope,
+  FaUser,
   FaSpinner,
   FaChevronDown,
   FaCheckCircle,
@@ -103,8 +104,16 @@ function RequestsInbox() {
                   <h3 className={styles.cardTitle}>
                     {req.project_title || "Untitled Project"}
                   </h3>
-                  <p className={styles.clientName}>{clientName}</p>
-                  <p className={styles.clientEmail}>{clientEmail}</p>
+                  <div className={styles.clientMeta}>
+                    <span className={styles.clientAvatar} aria-hidden="true">
+                      <FaUser />
+                    </span>
+                    <div className={styles.clientDetails}>
+                      <span className={styles.clientLabel}>Requested by</span>
+                      <p className={styles.clientName}>{clientName}</p>
+                      <p className={styles.clientEmail}>{clientEmail}</p>
+                    </div>
+                  </div>
                 </div>
                 <span className={`${styles.badge} ${styles.pending}`}>
                   {req.status}
