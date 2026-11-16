@@ -12,6 +12,7 @@ import {
 import toast from "react-hot-toast";
 
 import useRequests from "../../hooks/useRequests";
+import useClients from "../../hooks/useClients";
 import { approveRequest, rejectRequest } from "../../services/requestService";
 
 import StatCard from "../../ui/StatCard";
@@ -23,6 +24,7 @@ import RejectModal from "./RejectModal";
 function RequestsInbox() {
   const queryClient = useQueryClient();
   const { data: requests, error, isLoading } = useRequests();
+  const { data: clients } = useClients();
   const [isApproving, setIsApproving] = useState(null);
   const [isRejecting, setIsRejecting] = useState(null);
   const [expandedId, setExpandedId] = useState(null);
@@ -89,13 +91,21 @@ function RequestsInbox() {
         {requests?.map((req) => {
           const isBusy = isApproving === req.id || isRejecting === req.id;
           const isExpanded = expandedId === req.id;
+          const client = clients?.find((item) => item.id === req.client_id);
+          const clientName = client?.full_name || "Unknown client";
+          const clientEmail =
+            req.contact_email || client?.contact_email || "No email provided";
 
           return (
             <div key={req.id} className={styles.card}>
               <div className={styles.cardHeader}>
-                <h3 className={styles.cardTitle}>
-                  {req.project_title || "Untitled Project"}
-                </h3>
+                <div className={styles.titleGroup}>
+                  <h3 className={styles.cardTitle}>
+                    {req.project_title || "Untitled Project"}
+                  </h3>
+                  <p className={styles.clientName}>{clientName}</p>
+                  <p className={styles.clientEmail}>{clientEmail}</p>
+                </div>
                 <span className={`${styles.badge} ${styles.pending}`}>
                   {req.status}
                 </span>
