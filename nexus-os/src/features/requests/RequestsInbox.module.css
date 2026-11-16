@@ -40,20 +40,26 @@
   min-width: 0;
 }
 
+.cardTitle {
+  margin: 0;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--border-subtle);
+  line-height: 1.25;
+}
+
 .clientMeta {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
-  margin-top: 0.85rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--border-subtle);
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+  padding: 0;
 }
 
 .clientAvatar {
   display: grid;
-  flex: 0 0 2rem;
-  width: 2rem;
-  height: 2rem;
+  flex: 0 0 1.85rem;
+  width: 1.85rem;
+  height: 1.85rem;
   place-items: center;
   border-radius: 50%;
   background: rgba(37, 99, 235, 0.12);
@@ -62,6 +68,8 @@
 }
 
 .clientDetails {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
 }
 
@@ -71,6 +79,8 @@
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.04em;
+  line-height: 1.05;
+  margin-bottom: 0.3rem;
   text-transform: uppercase;
 }
 
@@ -78,13 +88,15 @@
   font-size: 0.92rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin: 0.12rem 0 0;
+  line-height: 1.15;
+  margin: 0;
 }
 
 .clientEmail {
   color: var(--text-tertiary);
   font-size: 0.8rem;
-  margin: 0.08rem 0 0;
+  line-height: 1.15;
+  margin: 0.25rem 0 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -174,6 +186,7 @@
   font-size: 0.8rem;
   font-weight: 500;
   transition: all 0.15s ease;
+  margin-top: 0.2rem;
 }
 
 .expandBtn:hover {
@@ -195,7 +208,7 @@
 .actions {
   display: flex;
   gap: 0.75rem;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
 }
 
 .approveBtn,

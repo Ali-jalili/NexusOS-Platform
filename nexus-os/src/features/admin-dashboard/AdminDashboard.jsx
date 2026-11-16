@@ -68,9 +68,10 @@ function AdminDashboard() {
         />
       </div>
 
-      <ProjectPieChart />
+      <div className={styles.overviewGrid}>
+        <ProjectPieChart />
 
-      <div className={styles.section}>
+        <div className={styles.section}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Recent Projects</h2>
           <Link to="/app/projects" className={styles.viewAll}>
@@ -79,7 +80,7 @@ function AdminDashboard() {
           </Link>
         </div>
         <div className={styles.projectGrid}>
-          {projects?.slice(0, 6).map((project) => {
+          {projects?.slice(0, 4).map((project) => {
             const clientName = getClientName(clients, project.client_id);
             const developerName = getDeveloperName(
               developers,
@@ -143,6 +144,7 @@ function AdminDashboard() {
               </div>
             );
           })}
+        </div>
         </div>
       </div>
     </div>
