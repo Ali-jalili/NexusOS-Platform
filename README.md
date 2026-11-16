@@ -92,21 +92,19 @@ Follow these steps to run the project locally:
    git clone https://github.com/Ali-jalili/NexusOS-Platform.git
    ```
 
-2. **Navigate to the project directory:**
+2. **Install the app dependencies:**
    ```bash
    cd NexusOS-Platform/nexus-os
-   ```
-
-3. **Install dependencies:**
-   ```bash
    npm install
    ```
 
-4. **Create your `.env`** (see the Environment Variables section below), then start the dev server:
+3. **Create your `.env`** (see the Environment Variables section below), then start the dev server:
    ```bash
    npm run dev
    ```
    On Windows PowerShell, use `npm.cmd run dev` if script execution policy blocks `npm.ps1`.
+
+The repository root also exposes wrapper commands, so after dependencies are installed you can run `npm run dev`, `npm run lint`, `npm run test`, or `npm run build` from `NexusOS-Platform/`.
 
 ---
 

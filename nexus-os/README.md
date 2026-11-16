@@ -1,16 +1,26 @@
-# React + Vite
+# Nexus Agency OS app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This folder contains the React/Vite application for Nexus Agency OS. The repository-level [README](../README.md) contains the product overview, architecture, database notes, and full setup guide.
 
-Currently, two official plugins are available:
+## Commands
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Run these commands from this folder:
 
-## React Compiler
+```bash
+npm install
+npm run dev
+npm run lint
+npm run test
+npm run build
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The same commands are available from the repository root through wrapper scripts.
 
-## Expanding the ESLint configuration
+## App structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- `src/app/` — routing, layouts, and route guards
+- `src/components/` — shared UI components
+- `src/features/` — admin, client, developer, request, and public flows
+- `src/hooks/` — React Query and domain hooks
+- `src/services/` — Supabase service layer
+- `supabase/migrations/` — database schema and security migrations
