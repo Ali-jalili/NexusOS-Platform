@@ -60,7 +60,7 @@ A modern SaaS-based agency management platform built with React and Supabase to 
 ## ✨ Engineering Highlights
 
 * **Architectural Excellence:** Designed a scalable feature-based frontend architecture ensuring long-term code maintainability.
-* **Data Security:** Implemented fine-grained Row Level Security (RLS) policies and database triggers for dynamic profile initialization.
+* **Data Security:** Implemented Row Level Security (RLS) policies and a database trigger that initializes client rows for new client accounts.
 * **Efficient State Management:** Managed server state with React Query (caching and automatic cache invalidation after mutations).
 * **Resilience & Performance:** Applied code-splitting, lazy-loaded routes, vendor chunk splitting (no chunk exceeds the 500 kB warning), and a global `ErrorBoundary` to prevent blank-screen crashes.
 * **Quality & CI:** Unit tests for the auth guards (`RoleGate`, `ProtectedRoute`) with Vitest + Testing Library, gated by a GitHub Actions workflow (lint → test → build).
@@ -72,13 +72,14 @@ A modern SaaS-based agency management platform built with React and Supabase to 
 
 The security boundary is enforced on the database side, not on the UI:
 
-* **Role-based RLS:** All tables (`requests`, `clients`, `developers`, `projects`, `candidates`) have Row Level Security enabled. Role-gated policies evaluate a custom JWT claim (`auth.jwt() ->> 'user_role'`) injected server-side, which clients cannot forge or tamper with.
+* **Role-based RLS:** All tables (`requests`, `clients`, `developers`, `projects`, `candidates`) have Row Level Security enabled. Role-gated policies evaluate the custom JWT claim (`auth.jwt() ->> 'user_role'`) produced by the Custom Access Token Hook. The hook must be enabled in Supabase Dashboard under **Authentication → Hooks**.
+* **Role source:** The current hook derives `user_role` from `auth.users.raw_user_meta_data.role` and defaults to `client` when no role is present. This mirrors the live database; production deployments should move role assignment to a server-controlled metadata source before treating the claim as tamper-proof.
 * **Ownership policies:** Client/developer rows are only visible when `id = auth.uid()`, `client_id = auth.uid()`, or `developer_id = auth.uid()`.
 * **Database triggers:** A `SECURITY DEFINER` trigger on `auth.users` auto-initializes `clients` rows for newly signed-up clients, with `search_path` locked to `''` to prevent escalation.
 * **Atomic mutations:** Multi-table flows (e.g., approving a request) run through `SECURITY DEFINER` Postgres RPC functions inside a single transaction, so partial failures cannot leave inconsistent data.
 * **Frontend guards:** Route/role guards in React are a UX layer only; they never replace the database-level checks.
 
-The canonical schema, triggers, policies, and RPC functions are documented under [`nexus-os/supabase/migrations`](nexus-os/supabase/migrations) so the backend security model is verifiable from the repository.
+The schema snapshot, trigger, JWT hook, policies, and RPC function observed in the live database are documented under [`nexus-os/supabase/migrations`](nexus-os/supabase/migrations). `001_tables.sql` is a fresh-database reference and must not be run against the existing production database.
 
 ---
 
@@ -136,7 +137,7 @@ nexus-os/
 │   └── test/         # Unit tests (auth guards) and test setup
 ├── utils/            # Utility and helper functions (e.g., name lookups)
 └── supabase/
-    └── migrations/   # Canonical schema, triggers, RLS policies, and RPC functions
+    └── migrations/   # Live schema snapshot, trigger, JWT hook, RLS policies, and RPC function
 ```
 
 ---
