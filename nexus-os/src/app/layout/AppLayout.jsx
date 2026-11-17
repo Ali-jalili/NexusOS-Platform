@@ -8,13 +8,13 @@ import styles from "./AppLayout.module.css";
 
 function AppLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(
-    () => window.innerWidth >= 768,
+    () => window.innerWidth > 768,
   );
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 768);
 
   useEffect(() => {
     const handleResize = () => {
-      const mobile = window.innerWidth < 768;
+      const mobile = window.innerWidth <= 768;
       setIsMobile(mobile);
       setSidebarOpen(!mobile);
     };

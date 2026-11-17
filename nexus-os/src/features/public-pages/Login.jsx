@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { FaEnvelope, FaLock, FaSpinner } from "react-icons/fa";
+import { FaEnvelope, FaEye, FaEyeSlash, FaLock, FaSpinner } from "react-icons/fa";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
 import styles from "./Login.module.css";
@@ -10,6 +10,7 @@ import styles from "./Login.module.css";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [shake, setShake] = useState(false);
 
@@ -81,13 +82,23 @@ function Login() {
             <FaLock className={styles.inputIcon} />
             <input
               id="password"
-              type="password"
+              className={styles.passwordInput}
+              type={showPassword ? "text" : "password"}
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={isLoading}
               autoComplete="current-password"
             />
+            <button
+              type="button"
+              className={styles.passwordToggle}
+              onClick={() => setShowPassword((visible) => !visible)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              aria-pressed={showPassword}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
           </div>
         </div>
 

@@ -8,6 +8,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
   z-index: 1000;
 }
 
@@ -17,7 +19,10 @@
   border-radius: var(--radius-lg);
   padding: 2rem;
   max-width: 450px;
-  width: 90%;
+  width: min(450px, 100%);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -66,6 +71,7 @@
   font-size: 0.9rem;
   resize: vertical;
   font-family: inherit;
+  box-sizing: border-box;
 }
 
 .textarea:focus {
@@ -124,5 +130,25 @@
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 480px) {
+  .overlay {
+    padding: 0.75rem;
+  }
+
+  .modal {
+    padding: 1.25rem;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .cancelBtn,
+  .confirmBtn {
+    width: 100%;
+    justify-content: center;
   }
 }

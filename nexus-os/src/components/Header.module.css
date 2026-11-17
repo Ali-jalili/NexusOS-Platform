@@ -18,6 +18,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  min-width: 0;
 }
 
 .sidebarToggle {
@@ -46,6 +47,8 @@
   letter-spacing: -0.3px;
   text-decoration: none;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .actions {
@@ -56,6 +59,10 @@
 }
 
 .link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
   padding: 0.5rem 1rem;
   color: var(--text-secondary);
   text-decoration: none;
@@ -64,6 +71,19 @@
   font-weight: 500;
   transition: all 0.15s ease;
   white-space: nowrap;
+}
+
+.dashboardLink {
+  color: var(--accent-primary);
+  font-weight: 600;
+  background: var(--accent-subtle);
+  border: 1px solid var(--border-subtle);
+}
+
+.dashboardLink:hover {
+  color: var(--accent-primary);
+  background: var(--bg-elevated);
+  border-color: var(--accent-primary);
 }
 
 .link:hover {
@@ -92,10 +112,29 @@
 
 /* ========== Authenticated user menu (role badge + avatar) ========== */
 .userMenu {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   flex-shrink: 0;
+}
+
+.avatarButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-md);
+}
+
+.avatarButton:hover,
+.avatarButton:focus-visible {
+  color: var(--text-primary);
+  background: var(--bg-elevated);
 }
 
 .roleBadge {
@@ -136,6 +175,57 @@
   font-weight: 700;
   border: 1px solid var(--border-primary);
   flex-shrink: 0;
+}
+
+.accountChevron {
+  font-size: 0.65rem;
+  transition: transform 0.15s ease;
+}
+
+.accountChevron.open {
+  transform: rotate(180deg);
+}
+
+.accountMenu {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  right: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+  min-width: 210px;
+  padding: 0.85rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.accountEmail {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accountLogout {
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  color: var(--text-secondary);
+  text-align: left;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+}
+
+.accountLogout:hover {
+  color: var(--error);
+  border-color: var(--error);
 }
 
 /* ========== Get Started dropdown (guests) ========== */
@@ -243,6 +333,7 @@
 
   .actions {
     gap: 0.5rem;
+    min-width: 0;
   }
 
   .link,
@@ -266,6 +357,19 @@
     font-size: 0.8rem;
   }
 
+  .actions {
+    gap: 0.35rem;
+  }
+
+  .dashboardLink {
+    padding-right: 0.55rem;
+    padding-left: 0.55rem;
+  }
+
+  .userMenu {
+    gap: 0.35rem;
+  }
+
   .link,
   .logoutBtn,
   .getStartedToggle {
@@ -275,5 +379,33 @@
 
   .getStartedMenu {
     min-width: 200px;
+  }
+}
+
+@media (max-width: 360px) {
+  .header {
+    gap: 0.4rem;
+    padding-right: 0.65rem;
+    padding-left: 0.65rem;
+  }
+
+  .brand {
+    gap: 0.25rem;
+  }
+
+  .title {
+    max-width: 92px;
+    font-size: 0.72rem;
+  }
+
+  .actions {
+    gap: 0.2rem;
+  }
+
+  .dashboardLink {
+    gap: 0.25rem;
+    padding-right: 0.4rem;
+    padding-left: 0.4rem;
+    font-size: 0.68rem;
   }
 }

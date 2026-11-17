@@ -6,6 +6,7 @@ import {
   FaBars,
   FaChevronLeft,
   FaChevronDown,
+  FaHome,
   FaRocket,
   FaUserTie,
 } from "react-icons/fa";
@@ -16,20 +17,25 @@ import useAuth from "../hooks/useAuth";
 
 const roleRoute = {
   admin: { to: "/app/admin", label: "Dashboard", badge: "Admin" },
-  client: { to: "/client-dashboard", label: "My Projects", badge: "Client" },
-  developer: { to: "/dev-dashboard", label: "My Tasks", badge: "Developer" },
+  client: { to: "/client-dashboard", label: "Dashboard", badge: "Client" },
+  developer: { to: "/dev-dashboard", label: "Dashboard", badge: "Developer" },
 };
 
 function Header({ showSidebarToggle = false, onToggleSidebar, isSidebarOpen }) {
   const { role, user, handleLogout } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const menuRef = useRef(null);
+  const userMenuRef = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(e) {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
         setMenuOpen(false);
+      }
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+        setUserMenuOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -37,6 +43,7 @@ function Header({ showSidebarToggle = false, onToggleSidebar, isSidebarOpen }) {
   }, []);
 
   async function handleExit() {
+    setUserMenuOpen(false);
     await handleLogout();
     toast.success("You've been logged out.");
     navigate("/");
@@ -62,23 +69,46 @@ function Header({ showSidebarToggle = false, onToggleSidebar, isSidebarOpen }) {
 
       {user && roleRoute[role] && (
         <div className={styles.actions}>
-          <NavLink to={roleRoute[role].to} className={styles.link}>
+          <NavLink
+            to={roleRoute[role].to}
+            className={`${styles.link} ${styles.dashboardLink}`}
+            aria-label={`Go to ${roleRoute[role].badge} dashboard`}
+          >
+            <FaHome aria-hidden="true" />
             {roleRoute[role].label}
           </NavLink>
 
-          <div className={styles.userMenu}>
-            <span className={`${styles.roleBadge} ${styles[`role_${role}`]}`}>
-              {roleRoute[role].badge}
-            </span>
-            <span
-              className={styles.avatar}
-              aria-label={`Signed in as ${user?.email ?? "user"}`}
+          <div className={styles.userMenu} ref={userMenuRef}>
+            <button
+              type="button"
+              className={styles.avatarButton}
+              onClick={() => setUserMenuOpen((prev) => !prev)}
+              aria-label="Open account menu"
+              aria-expanded={userMenuOpen}
+              aria-haspopup="menu"
             >
-              {(user?.email ?? "?").charAt(0).toUpperCase()}
-            </span>
-            <button className={styles.logoutBtn} onClick={handleExit}>
-              Logout
+              <span className={styles.avatar} aria-hidden="true">
+                {(user?.email ?? "?").charAt(0).toUpperCase()}
+              </span>
+              <FaChevronDown
+                className={`${styles.accountChevron} ${userMenuOpen ? styles.open : ""}`}
+              />
             </button>
+            {userMenuOpen && (
+              <div className={styles.accountMenu} role="menu">
+                <span className={styles.accountEmail}>{user?.email}</span>
+                <span className={`${styles.roleBadge} ${styles[`role_${role}`]}`}>
+                  {roleRoute[role].badge}
+                </span>
+                <button
+                  className={styles.accountLogout}
+                  onClick={handleExit}
+                  role="menuitem"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

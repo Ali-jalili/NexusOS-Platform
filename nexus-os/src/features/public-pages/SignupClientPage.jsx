@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import toast from "react-hot-toast";
-import { FaSpinner } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaSpinner } from "react-icons/fa";
 import styles from "./SignupClientPage.module.css";
 import { signupClient } from "../../services/authService";
 
@@ -12,6 +12,7 @@ function SignupClientPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -70,14 +71,27 @@ function SignupClientPage() {
 
       <div className={styles.field}>
         <label htmlFor="clientPassword">Password</label>
-        <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          id="clientPassword"
-          placeholder="Min. 6 characters"
-          disabled={isLoading}
-        />
+        <div className={styles.passwordWrapper}>
+          <input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type={showPassword ? "text" : "password"}
+            id="clientPassword"
+            placeholder="Min. 6 characters"
+            disabled={isLoading}
+            autoComplete="new-password"
+          />
+          <button
+            type="button"
+            className={styles.passwordToggle}
+            onClick={() => setShowPassword((visible) => !visible)}
+            aria-label={showPassword ? "Hide password" : "Show password"}
+            aria-pressed={showPassword}
+            disabled={isLoading}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </button>
+        </div>
       </div>
 
       <button className={styles.submitBtn} type="submit" disabled={isLoading}>

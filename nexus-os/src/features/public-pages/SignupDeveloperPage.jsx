@@ -8,6 +8,8 @@ import {
   FaLock,
   FaCode,
   FaLink,
+  FaEye,
+  FaEyeSlash,
   FaSpinner,
 } from "react-icons/fa";
 
@@ -21,6 +23,7 @@ function SignupDeveloperPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [specialty, setSpecialty] = useState("");
   const [resumeUrl, setResumeUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -149,12 +152,23 @@ function SignupDeveloperPage() {
             <FaLock className={styles.inputIcon} />
             <input
               id="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
+              className={styles.passwordInput}
               placeholder="Min. 6 characters"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={isLoading}
             />
+            <button
+              type="button"
+              className={styles.passwordToggle}
+              onClick={() => setShowPassword((visible) => !visible)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              aria-pressed={showPassword}
+              disabled={isLoading}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
           </div>
         </div>
 
