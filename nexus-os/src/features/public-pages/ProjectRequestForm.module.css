@@ -1,5 +1,6 @@
 .form {
-  max-width: 600px;
+  width: min(calc(100% - 4rem), var(--form-max-width));
+  max-width: var(--form-max-width);
   margin: 2rem auto;
   padding: 2rem;
   background-color: var(--bg-secondary);
@@ -66,4 +67,12 @@
 }
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+@media (max-width: 480px) {
+  .form {
+    width: calc(100% - 1.5rem);
+    margin: 1.5rem auto;
+    padding: 1.5rem 1.25rem;
+  }
 }

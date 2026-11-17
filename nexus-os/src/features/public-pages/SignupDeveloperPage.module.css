@@ -8,7 +8,7 @@
 
 .form {
   width: 100%;
-  max-width: 480px;
+  max-width: var(--form-max-width);
   background: var(--bg-primary);
   border: 1px solid var(--border-primary);
   border-radius: var(--radius-lg);
@@ -147,4 +147,14 @@
 
 .link:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 1rem 0.75rem;
+  }
+
+  .form {
+    padding: 1.5rem 1.25rem;
+  }
 }

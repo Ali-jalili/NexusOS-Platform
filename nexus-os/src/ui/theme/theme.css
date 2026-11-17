@@ -52,6 +52,9 @@
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
   --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.12);
   --shadow-colored: 0 8px 24px rgba(37, 99, 235, 0.12);
+
+  /* Shared maximum width for full-page forms. */
+  --form-max-width: 560px;
 }
 
 /* ریست کلی */
